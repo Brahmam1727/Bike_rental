@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bike Demand Prediction</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Arimo|Hind:300|Open+Sans+Condensed:300" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arimo, sans-serif;
+            background: #f4f6f8;
+            text-align: center;
+            padding: 40px;
+        }
+        .login {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 420px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, select {
+            width: 90%;
+            padding: 8px;
+            margin: 6px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            width: 95%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login">
+    <h1>Bike Demand Prediction</h1>
+
+    <form action="{{ url_for('predict') }}" method="post">
+
+             <!-- Date -->
+        <input type="date" name="dteday" required />
+        
+        <!-- Season -->
+        <select name="season" required>
+            <option value="">Select Season</option>
+            <option value="1">Spring</option>
+            <option value="2">Summer</option>
+            <option value="3">Fall</option>
+            <option value="4">Winter</option>
+        </select>
+
+        <!-- Year -->
+        <select name="yr" required>
+            <option value="">Select Year</option>
+            <option value="0">2011</option>
+            <option value="1">2012</option>
+        </select>
+
+        <input type="number" name="mnth" placeholder="Month (1-12)" required />
+        <input type="number" name="weekday" placeholder="Weekday (0-6)" required />
+
+        <!-- Holiday -->
+        <select name="holiday" required>
+            <option value="0">No Holiday</option>
+            <option value="1">Holiday</option>
+        </select>
+
+        <!-- Working Day -->
+        <select name="workingday" required>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+
+        <!-- Weather -->
+        <select name="weathersit" required>
+            <option value="1">Clear</option>
+            <option value="2">Mist</option>
+            <option value="3">Light Rain/Snow</option>
+            <option value="4">Heavy Rain/Snow</option>
+        </select>
+
+        <input type="number" step="any" name="temp" placeholder="Temperature (0–1)" required />
+        <input type="number" step="any" name="atemp" placeholder="Feels Like Temp (0–1)" required />
+        <input type="number" step="any" name="hum" placeholder="Humidity (0–1)" required />
+        <input type="number" step="any" name="windspeed" placeholder="Windspeed (0–1)" required />
+
+        <input type="number" name="casual" placeholder="Casual Users" required />
+        <input type="number" name="registered" placeholder="Registered Users" required />
+        <input type="number" name="cnt" placeholder="Total Count" required />
+
+        <button type="submit">Predict</button>
+    </form>
+
+    <div class="result">
+        {{ prediction_text }}
+    </div>
+</div>
+
+</body>
+</html>
